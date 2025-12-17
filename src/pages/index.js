@@ -85,7 +85,7 @@ export default function Home() {
                 <div className={styles.methodIcon}>🚀</div>
                 <div>
                   <h3>Couper le temps par quatre</h3>
-                  <p>En utilisant une architecture senior pré-construite et la puissance de l'IA pour impacter le plus possible votre métier.</p>
+                  <p>J'utilise une architecture senior pré-construite et la puissance de l'IA pour impacter le plus possible votre métier.</p>
                 </div>
               </div>
               <div className={styles.methodFeature}>

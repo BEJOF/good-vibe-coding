@@ -97,7 +97,7 @@ export default function Formulaire() {
                         <p style={{ opacity: 0.8, fontSize: '1.2rem', marginBottom: '2rem' }}>
                             Merci {formData.name}, votre projet est entre de bonnes mains. Je reviens vers vous sous 24h avec une estimation précise.
                         </p>
-                        <a href="/vibe-coding/" className={styles.nextButton} style={{ margin: '0 auto', display: 'inline-flex', background: 'white', color: 'black' }}>
+                        <a href="/good-vibe-coding/" className={styles.nextButton} style={{ margin: '0 auto', display: 'inline-flex', background: 'white', color: 'black' }}>
                             Retour au site
                         </a>
                     </div>
