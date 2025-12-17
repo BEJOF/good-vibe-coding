@@ -87,6 +87,7 @@ export default function Formulaire() {
     const progressPercentage = (step / totalSteps) * 100;
 
     if (status === 'success') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         return (
             <Layout title="Candidature Envoyée">
                 <main className={clsx(commonStyles.sectionDark)} style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
