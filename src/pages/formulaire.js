@@ -2,17 +2,22 @@ import React, { useState } from 'react';
 import Layout from '@theme/Layout';
 import clsx from 'clsx';
 import styles from './formulaire.module.css';
-import commonStyles from './offre.module.css'; // Reusing hero/section styles
+import commonStyles from './offre.module.css';
 
 export default function Formulaire() {
+    const [step, setStep] = useState(1);
+    const totalSteps = 4;
+
     const [formData, setFormData] = useState({
         budget: '',
         timeline: '',
         scope: '',
-        name: '', // Added name for completeness
+        name: '',
         email: '',
         phone: ''
     });
+
+    const [status, setStatus] = useState('idle'); // idle, submitting, success, error
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -22,38 +27,89 @@ export default function Formulaire() {
         }));
     };
 
-    const handleBudgetSelect = (value) => {
-        setFormData(prevState => ({ ...prevState, budget: value }));
+    // Auto-advance logic for Radio selections
+    const handleSelection = (name, value) => {
+        setFormData(prevState => ({ ...prevState, [name]: value }));
+        // Small delay for visual feedback before auto-advancing
+        setTimeout(() => {
+            if (step < totalSteps) {
+                setStep(prev => prev + 1);
+            }
+        }, 300);
     };
 
-    const handleTimelineSelect = (value) => {
-        setFormData(prevState => ({ ...prevState, timeline: value }));
+    const handleNext = () => {
+        // Validation per step
+        if (step === 1 && !formData.budget) return alert("Veuillez sélectionner une option.");
+        if (step === 2 && !formData.timeline) return alert("Veuillez sélectionner un délai.");
+        if (step === 3 && !formData.scope) return alert("Veuillez décrire votre projet.");
+
+        if (step < totalSteps) {
+            setStep(prev => prev + 1);
+        }
     };
 
-    const handleSubmit = (e) => {
+    const handleBack = () => {
+        if (step > 1) {
+            setStep(prev => prev - 1);
+        }
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const subject = encodeURIComponent(`Demande Projet Vibe: ${formData.budget}`);
-        const body = encodeURIComponent(
-            `Bonjour,\n\nVoici mon projet :\n\n` +
-            `--- PROJET ---\n` +
-            `💰 Budget : ${formData.budget}\n` +
-            `⏱ Délai : ${formData.timeline}\n` +
-            `🎯 Scope Critique : ${formData.scope}\n\n` +
-            `--- CONTACT ---\n` +
-            `Nom : ${formData.name}\n` +
-            `Email : ${formData.email}\n` +
-            `Tél : ${formData.phone}\n`
-        );
-        window.location.href = `mailto:contact@vibecoding.com?subject=${subject}&body=${body}`;
+
+        if (!formData.name || !formData.email || !formData.phone) {
+            return alert("Veuillez remplir tous les champs de contact.");
+        }
+
+        setStatus('submitting');
+
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyZJOO5RQwbmspI5s1pOjpFPqBeQBhJeRBlAj8gsOWT_jYFdv5p0eBW2N3NkM-Euq-fmA/exec';
+
+        const dataToSend = {
+            budget: formData.budget,
+            timeline: formData.timeline,
+            scope: formData.scope,
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+        };
+
+        try {
+            await fetch(scriptURL, { method: 'POST', body: JSON.stringify(dataToSend), headers: { 'Content-Type': 'application/json' }, mode: 'no-cors' });
+            setStatus('success');
+        } catch (error) {
+            console.error('Error!', error.message);
+            setStatus('error');
+        }
     };
+
+    const progressPercentage = (step / totalSteps) * 100;
+
+    if (status === 'success') {
+        return (
+            <Layout title="Candidature Envoyée">
+                <main className={clsx(commonStyles.sectionDark)} style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div className={styles.formContainer} style={{ textAlign: 'center', padding: '4rem' }}>
+                        <div style={{ fontSize: '5rem', marginBottom: '1rem' }}>🎉</div>
+                        <h2 className={styles.questionTitle} style={{ marginBottom: '1rem', color: 'white' }}>Demande Reçue !</h2>
+                        <p style={{ opacity: 0.8, fontSize: '1.2rem', marginBottom: '2rem' }}>
+                            Merci {formData.name}, votre projet est entre de bonnes mains. Je reviens vers vous sous 24h avec une estimation précise.
+                        </p>
+                        <a href="/vibe-coding/" className={styles.nextButton} style={{ margin: '0 auto', display: 'inline-flex', background: 'white', color: 'black' }}>
+                            Retour au site
+                        </a>
+                    </div>
+                </main>
+            </Layout>
+        );
+    }
 
     return (
-        <Layout title="Formulaire de Qualification" description="Parlez-nous de votre projet">
-            <header className={clsx(commonStyles.sectionDark)} style={{ padding: '6rem 0 4rem' }}>
-                <div className="container">
-                    <h1 className="hero__title" style={{ textAlign: 'center', marginBottom: '1rem' }}>
-                        Démarrons Votre Projet <span className="highlight">Sur de Bonnes Bases</span>
-                    </h1>
+        <Layout title="Formulaire de Qualification">
+            <header className={clsx(commonStyles.sectionDark)} style={{ padding: '4rem 0 2rem' }}>
+                <div className="container" style={{ textAlign: 'center' }}>
+                    <h1 className="hero__title" style={{ fontSize: '2.5rem' }}>Parlez-nous de <span className="highlight">Votre Projet</span></h1>
                     <p className="hero__subtitle" style={{ fontSize: '1.2rem', opacity: 0.8, textAlign: 'center', maxWidth: '600px', margin: '0 auto' }}>
                         3 minutes pour définir votre besoin.
                         <br />
@@ -62,193 +118,208 @@ export default function Formulaire() {
                 </div>
             </header>
 
-            <main className={clsx(commonStyles.sectionLight)}>
+            <main className={clsx(commonStyles.sectionLight)} style={{ paddingBottom: '4rem' }}>
                 <div className="container">
-                    <form onSubmit={handleSubmit} className={styles.formContainer}>
+                    <div className={styles.formContainer}>
 
-                        {/* Q1: Budget */}
-                        <div className={styles.questionBlock}>
-                            <div className={styles.questionHeader}>
-                                <div className={styles.questionNumber}>1</div>
-                                <h3 className={styles.questionTitle}>Quel est le type de projet principal et le budget ?</h3>
-                            </div>
-                            <p className={styles.helperText}>Pour s'assurer que je peux vous apporter un maximum de valeur dans votre budget.</p>
-
-                            <div className={styles.radioGroup}>
-                                <RadioCard
-                                    name="budget"
-                                    value="Landing Page / Site Vitrine (2.5k€ - 5k€)"
-                                    label="Option A"
-                                    description="Landing Page / Site Vitrine (2 500 € à 5 000 €)"
-                                    selected={formData.budget}
-                                    onChange={handleBudgetSelect}
-                                />
-                                <RadioCard
-                                    name="budget"
-                                    value="Dashboard / Micro-CRM (4.5k€ - 10k€)"
-                                    label="Option B"
-                                    description="Dashboard de Gestion / Micro-CRM (4 500 € à 10 000 €)"
-                                    selected={formData.budget}
-                                    onChange={handleBudgetSelect}
-                                />
-                                <RadioCard
-                                    name="budget"
-                                    value="MVP Spécifique (> 10k€)"
-                                    label="Option C"
-                                    description="Prototype ou MVP Technique Spécifique (> 10 000 €)"
-                                    selected={formData.budget}
-                                    onChange={handleBudgetSelect}
-                                />
-                                <RadioCard
-                                    name="budget"
-                                    value="Hors Budget"
-                                    label="Option D"
-                                    description="Mon projet est hors de ces fourchettes."
-                                    selected={formData.budget}
-                                    onChange={handleBudgetSelect}
-                                />
-                            </div>
+                        {/* Progress Bar */}
+                        <div className={styles.progressContainer}>
+                            <div className={styles.progressBar} style={{ width: `${progressPercentage}%` }}></div>
                         </div>
 
-                        {/* Q2: Timeline */}
-                        <div className={styles.questionBlock}>
-                            <div className={styles.questionHeader}>
-                                <div className={styles.questionNumber}>2</div>
-                                <h3 className={styles.questionTitle}>Délai souhaité pour la v1 (MVP) ?</h3>
-                            </div>
-                            <p className={styles.helperText}>La vitesse est ma spécialité. Validez votre urgence.</p>
-
-                            <div className={styles.radioGroup}>
-                                <RadioCard
-                                    name="timeline"
-                                    value="Urgent (< 2 semaines)"
-                                    label="Option A"
-                                    description="Urgent : Le plus rapidement possible (Moins de 2 semaines)"
-                                    selected={formData.timeline}
-                                    onChange={handleTimelineSelect}
-                                />
-                                <RadioCard
-                                    name="timeline"
-                                    value="Standard (3-4 semaines)"
-                                    label="Option B"
-                                    description="Standard : Dans le mois (3 à 4 semaines)"
-                                    selected={formData.timeline}
-                                    onChange={handleTimelineSelect}
-                                />
-                                <RadioCard
-                                    name="timeline"
-                                    value="Long terme (> 1 mois)"
-                                    label="Option C"
-                                    description="Long terme : J'ai le temps (Plus d'un mois)"
-                                    selected={formData.timeline}
-                                    onChange={handleTimelineSelect}
-                                />
-                            </div>
-                        </div>
-
-                        {/* Q3: Scope */}
-                        <div className={styles.questionBlock}>
-                            <div className={styles.questionHeader}>
-                                <div className={styles.questionNumber}>3</div>
-                                <h3 className={styles.questionTitle}>La fonctionnalité "Killer" 🎯</h3>
-                            </div>
-                            <p className={styles.helperText}>
-                                Décrivez <strong>LA</strong> fonctionnalité critique qui débloquerait votre activité immédiatement si elle était livrée.
-                            </p>
-                            <textarea
-                                name="scope"
-                                className={styles.textarea}
-                                required
-                                value={formData.scope}
-                                onChange={handleChange}
-                                placeholder="Ex: Je dois pouvoir importer mes clients CSV et générer des factures PDF en un clic..."
-                            />
-                        </div>
-
-                        {/* Contact Section - Moved to Bottom for better UX */}
-                        <div className={styles.questionBlock} style={{ borderTop: '1px solid var(--vibe-border-color)', paddingTop: '2rem' }}>
-                            <div className={styles.questionHeader}>
-                                <div className={styles.questionNumber}>4</div>
-                                <h3 className={styles.questionTitle}>Vos Coordonnées</h3>
-                            </div>
-                            <p className={styles.helperText}>Pour vous envoyer l'analyse de faisabilité.</p>
-
-                            <div className={styles.contactGrid}>
-                                <div>
-                                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Votre Nom (Requis)</label>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        required
-                                        className={styles.inputField}
-                                        placeholder="Jean Dupont"
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                    />
+                        {/* STEP 1: BUDGET */}
+                        {step === 1 && (
+                            <div className={styles.stepBlock}>
+                                <div className={styles.questionHeader}>
+                                    <span className={styles.questionTag}>Étape 1/4 : Budget</span>
+                                    <h2 className={styles.questionTitle}>Quel est votre budget alloué ?</h2>
+                                    <p className={styles.helperText}>Ceci permet d'adapter la solution technique à votre réalité.</p>
                                 </div>
-                                <div /> {/* Spacer or extra field */}
-
-                                <div>
-                                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Email (Requis)</label>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        required
-                                        className={styles.inputField}
-                                        placeholder="votre@email.com"
-                                        value={formData.email}
-                                        onChange={handleChange}
+                                <div className={styles.radioGroup}>
+                                    <RadioCard
+                                        label="Landing Page / Vitrine"
+                                        desc="2 500 € - 5 000 €"
+                                        value="Landing Page (2.5k-5k)"
+                                        selected={formData.budget}
+                                        onSelect={(val) => handleSelection('budget', val)}
                                     />
-                                </div>
-                                <div>
-                                    <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Téléphone (Requis)</label>
-                                    <input
-                                        type="tel"
-                                        name="phone"
-                                        required
-                                        className={styles.inputField}
-                                        placeholder="06 13 38 56 XX"
-                                        value={formData.phone}
-                                        onChange={handleChange}
+                                    <RadioCard
+                                        label="SaaS / Dashboard"
+                                        desc="4 500 € - 10 000 €"
+                                        value="SaaS/Dashboard (4.5k-10k)"
+                                        selected={formData.budget}
+                                        onSelect={(val) => handleSelection('budget', val)}
+                                    />
+                                    <RadioCard
+                                        label="MVP Complexe"
+                                        desc="+ 10 000 €"
+                                        value="MVP Complexe (>10k)"
+                                        selected={formData.budget}
+                                        onSelect={(val) => handleSelection('budget', val)}
+                                    />
+                                    <RadioCard
+                                        label="Hors Budget / Autre"
+                                        desc="Je ne sais pas encore"
+                                        value="Hors Budget /Autre"
+                                        selected={formData.budget}
+                                        onSelect={(val) => handleSelection('budget', val)}
                                     />
                                 </div>
                             </div>
+                        )}
+
+                        {/* STEP 2: TIMELINE */}
+                        {step === 2 && (
+                            <div className={styles.stepBlock}>
+                                <div className={styles.questionHeader}>
+                                    <span className={styles.questionTag}>Étape 2/4 : Délai</span>
+                                    <h2 className={styles.questionTitle}>Quelle est votre urgence ?</h2>
+                                    <p className={styles.helperText}>La vitesse d'exécution est ma marque de fabrique.</p>
+                                </div>
+                                <div className={styles.radioGroup}>
+                                    <RadioCard
+                                        label="Urgent"
+                                        desc="Moins de 2 semaines"
+                                        value="Urgent (< 2 sem)"
+                                        selected={formData.timeline}
+                                        onSelect={(val) => handleSelection('timeline', val)}
+                                    />
+                                    <RadioCard
+                                        label="Standard"
+                                        desc="Sous 1 mois"
+                                        value="Standard (1 mois)"
+                                        selected={formData.timeline}
+                                        onSelect={(val) => handleSelection('timeline', val)}
+                                    />
+                                    <RadioCard
+                                        label="Confortable"
+                                        desc="Plus d'1 mois"
+                                        value="Long terme (> 1 mois)"
+                                        selected={formData.timeline}
+                                        onSelect={(val) => handleSelection('timeline', val)}
+                                    />
+                                </div>
+                            </div>
+                        )}
+
+                        {/* STEP 3: SCOPE */}
+                        {step === 3 && (
+                            <div className={styles.stepBlock}>
+                                <div className={styles.questionHeader}>
+                                    <span className={styles.questionTag}>Étape 3/4 : Scope</span>
+                                    <h2 className={styles.questionTitle}>La fonctionnalité "Killer" 🎯</h2>
+                                    <p className={styles.helperText}>Décrivez LA fonctionnalité indispensable qui justifie ce projet.</p>
+                                </div>
+                                <textarea
+                                    name="scope"
+                                    className={styles.textarea}
+                                    placeholder="Ex: Je veux que mes clients puissent générer des devis PDF automatiquement..."
+                                    value={formData.scope}
+                                    onChange={handleChange}
+                                    autoFocus
+                                />
+                            </div>
+                        )}
+
+                        {/* STEP 4: CONTACT */}
+                        {step === 4 && (
+                            <div className={styles.stepBlock}>
+                                <div className={styles.questionHeader}>
+                                    <span className={styles.questionTag}>Étape finale</span>
+                                    <h2 className={styles.questionTitle}>On y est presque !</h2>
+                                    <p className={styles.helperText}>Où dois-je envoyer l'estimation de faisabilité ?</p>
+                                </div>
+                                <div className={styles.contactGrid}>
+                                    <div>
+                                        <label style={{ fontWeight: 'bold', fontSize: '0.9rem', marginBottom: '0.5rem', display: 'block' }}>Votre Nom Complet</label>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            className={styles.inputField}
+                                            placeholder="John Doe"
+                                            value={formData.name}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label style={{ fontWeight: 'bold', fontSize: '0.9rem', marginBottom: '0.5rem', display: 'block' }}>Email Professionnel</label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            className={styles.inputField}
+                                            placeholder="john@entreprise.com"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label style={{ fontWeight: 'bold', fontSize: '0.9rem', marginBottom: '0.5rem', display: 'block' }}>Téléphone Mobile</label>
+                                        <input
+                                            type="tel"
+                                            name="phone"
+                                            className={styles.inputField}
+                                            placeholder="06 12 34 56 78"
+                                            value={formData.phone}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Navigation */}
+                        <div className={styles.navContainer}>
+                            {step > 1 ? (
+                                <button type="button" onClick={handleBack} className={styles.backButton}>
+                                    ← Retour
+                                </button>
+                            ) : <div></div>}
+
+                            {step < totalSteps && (
+                                <button type="button" onClick={handleNext} className={styles.nextButton}>
+                                    Suivant →
+                                </button>
+                            )}
+
+                            {step === totalSteps && (
+                                <button
+                                    onClick={handleSubmit}
+                                    disabled={status === 'submitting'}
+                                    className={clsx(styles.nextButton, styles.finalSubmitButton)}
+                                >
+                                    {status === 'submitting' ? 'Envoi...' : '🚀 Recevoir mon estimation'}
+                                </button>
+                            )}
                         </div>
 
-                        <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-                            <button type="submit" className={styles.submitButton}>
-                                🚀 Obtenir mon Estimation
-                            </button>
-                            <p style={{ marginTop: '1rem', fontSize: '0.9rem', opacity: 0.6 }}>
-                                Réponse garantie sous 24h ouvrées. Pas de spam.
-                            </p>
-                        </div>
-
-                    </form>
+                    </div>
                 </div>
             </main>
         </Layout>
     );
 }
 
-// Helper Component for Radio Cards
-function RadioCard({ name, value, label, description, selected, onChange }) {
+function RadioCard({ label, desc, value, selected, onSelect }) {
     const isSelected = selected === value;
     return (
         <div
             className={clsx(styles.radioLabel, isSelected && styles.radioLabelSelected)}
-            onClick={() => onChange(value)}
+            onClick={() => onSelect(value)}
         >
-            <input
-                type="radio"
-                name={name}
-                value={value}
-                checked={isSelected}
-                onChange={() => { }} // Handled by div click
-                className={styles.radioInput}
-            />
-            <div className={styles.radioText}>
-                <strong>{label} :</strong> {description.replace(new RegExp(`^${label} : `), '')}
+            <div className={styles.radioInput} style={{
+                borderRadius: '50%', border: '2px solid #555',
+                background: isSelected ? '#8A2BE2' : 'transparent',
+                borderColor: isSelected ? '#8A2BE2' : '#555',
+                display: 'flex', alignItems: 'center', justifyContent: 'center'
+            }}>
+                {isSelected && <div style={{ width: '8px', height: '8px', background: 'white', borderRadius: '50%' }}></div>}
+            </div>
+            <div>
+                <div style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>{label}</div>
+                <div style={{ opacity: 0.7, fontSize: '0.9rem' }}>{desc}</div>
             </div>
         </div>
     );
