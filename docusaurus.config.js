@@ -102,6 +102,11 @@ const config = {
             position: 'left',
             label: 'Contact',
           },
+          {
+            to: '/blog',
+            position: 'right',
+            label: 'Blog',
+          },
         ],
       },
       footer: {
@@ -116,8 +121,9 @@ const config = {
             ],
           },
           {
-            title: 'Contact',
+            title: 'Ressources',
             items: [
+              { label: 'Blog', to: '/blog' },
               { label: 'Tarifs', to: '/#pricing' },
               { label: 'Réserver', to: '/#contact' },
             ],

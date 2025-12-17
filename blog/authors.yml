@@ -23,3 +23,17 @@ slorber:
     linkedin: sebastienlorber
     github: slorber
     newsletter: https://thisweekinreact.com
+
+bejof:
+  name: Jonathan Labéjof
+  title: Founder Accélérateur Vibe Coding and BEJOF
+  url: https://bejof.org
+  image_url: https://github.com/bejof.png
+  page:
+    # customize the url of the author page at /blog/authors/<permalink>
+    permalink: '/all-bejof-articles'
+  socials:
+    # x: bejof
+    linkedin: jonathanlabejof
+    github: bejof
+    # newsletter: https://thisweekinreact.com
