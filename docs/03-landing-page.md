@@ -8,7 +8,7 @@ Structure optimisée pour vendre la rapidité.
 
 ## Héro Section
 
-*   **Titre (H1)** : 🚀 Votre Site ou Outil Clé en Main en 7 Jours Max. Développeur Senior Fullstack.
+*   **Titre (H1)** : 🚀 Votre Site ou Outil Sur-Mesure en 7 Jours Max. Développeur Senior Fullstack.
 *   **Sous-titre (H2)** : Stop aux projets qui s'éternisent ! Je vous livre un produit fini, fiable et prêt à l'emploi, pour un budget clair et garanti.
 *   **CTA** : ⚡ Démarrer Mon Diagnostic Gratuit et Ultra-Rapide
 *   **Preuve Sociale** : — Déjà X entrepreneurs mis sur orbite en un temps record.

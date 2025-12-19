@@ -84,11 +84,11 @@ const config = {
           src: 'img/logo.png',
         },
         items: [
-          {
-            to: '/#problem',
-            position: 'left',
-            label: 'Problème',
-          },
+          // {
+          //   to: '/#problem',
+          //   position: 'left',
+          //   label: 'Problème',
+          // },
           {
             to: '/#method',
             position: 'left',

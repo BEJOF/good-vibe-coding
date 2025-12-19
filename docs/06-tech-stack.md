@@ -28,7 +28,7 @@ C'est le standard actuel pour allier vitesse de développement et performance (S
 
 **Votre "Vibe"** : Vous assemblez votre interface comme des LEGO.
 
-### 3. L'Accélérateur de Code : Cursor (L'Éditeur de code IA)
+### 3. L'Accélérateur de Code : Cursor/Antigravity (L'Éditeur de code IA)
 
 Si vous utilisez encore VS Code classique, vous allez trop lentement pour le Good Vibe Coding.
 
@@ -38,7 +38,7 @@ Si vous utilisez encore VS Code classique, vous allez trop lentement pour le Goo
 
 **Votre "Vibe"** : Vous devenez un chef d'orchestre. Vous révisez le code plus que vous ne l'écrivez.
 
-### 4. Le Déploiement : Vercel
+### 4. Le Déploiement : Vercel/Dokploy
 
 C'est le prolongement naturel de Next.js.
 

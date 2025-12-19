@@ -16,7 +16,7 @@ export default function Home() {
       <header className={clsx('hero-section', styles.sectionDark)}>
         <div className="container">
           <h1 className="hero__title">
-            Votre Site ou Outil clé en Main en <br /><span className="highlight">7 Jours Max !</span>
+            Votre Site ou Outil Sur-Mesure en <br /><span className="highlight">7 Jours Max !</span>
           </h1>
           <h2 className={clsx('hero__subtitle', styles.heroContent)}>
             Stop aux projets qui s'éternisent !
@@ -108,7 +108,7 @@ export default function Home() {
                 href="#contact"
                 className="vibe-button"
               >
-                🚀 Je veux profiter de cette accélération
+                🚀 Je veux profiter de cette méthode
               </a>
             </div>
           </div>

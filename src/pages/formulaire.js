@@ -228,7 +228,7 @@ export default function Formulaire() {
                                 <div className={styles.questionHeader}>
                                     <span className={styles.questionTag}>Étape finale</span>
                                     <h2 className={styles.questionTitle}>On y est presque !</h2>
-                                    <p className={styles.helperText}>Où dois-je envoyer l'estimation de faisabilité ?</p>
+                                    <p className={styles.helperText}>À qui dois-je envoyer l'estimation de faisabilité ?</p>
                                 </div>
                                 <div className={styles.contactGrid}>
                                     <div>
