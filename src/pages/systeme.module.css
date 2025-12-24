@@ -1,0 +1,269 @@
+/* src/pages/systeme.module.css */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Hero Section */
+.heroSection {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 8rem 0;
+    text-align: center;
+}
+
+.heroSection::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(138, 43, 226, 0.15) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.heroContent {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.heroTitle {
+    font-size: 4.5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, #fff 0%, #a5a5a5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.heroTitle span {
+    background: linear-gradient(90deg, #8A2BE2, #FF0080);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.heroSubtitle {
+    font-size: 1.5rem;
+    color: var(--ifm-color-emphasis-700);
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+}
+
+/* Concept Section - Brain & Body */
+.conceptSection {
+    padding: 10rem 0;
+    background: var(--vibe-card-bg);
+    position: relative;
+}
+
+.conceptGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 5rem;
+}
+
+.conceptCard {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 3rem;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.conceptCard:hover {
+    border-color: #8A2BE2;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(138, 43, 226, 0.1);
+}
+
+.conceptIcon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    display: block;
+}
+
+/* Pillars Section */
+.pillarsSection {
+    padding: 10rem 0;
+}
+
+.pillarsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+.pillarCard {
+    background: var(--vibe-bg-color);
+    padding: 2.5rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    height: 100%;
+}
+
+.pillarNumber {
+    font-size: 5rem;
+    font-weight: 900;
+    opacity: 0.1;
+    line-height: 1;
+    margin-bottom: -2rem;
+    margin-left: -1rem;
+}
+
+/* Pricing Section */
+.pricingSection {
+    padding: 10rem 0;
+    background: linear-gradient(180deg, var(--vibe-card-bg) 0%, var(--vibe-bg-color) 100%);
+}
+
+.pricingGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 3rem;
+    max-width: 1000px;
+    margin: 5rem auto 0;
+}
+
+.pricingCard {
+    background: rgba(25, 25, 25, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.pricingCardFeatured {
+    border-color: #8A2BE2;
+    box-shadow: 0 0 40px rgba(138, 43, 226, 0.15);
+    transform: scale(1.05);
+}
+
+.pricingCardFeatured::before {
+    content: 'RECOMMANDÉ';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: #8A2BE2;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.price {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: white;
+    margin: 1.5rem 0;
+}
+
+.price span {
+    font-size: 1rem;
+    color: #888;
+    font-weight: normal;
+}
+
+.featuresList {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+    flex-grow: 1;
+}
+
+.featuresList li {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #ccc;
+}
+
+.featuresList li::before {
+    content: '✓';
+    color: #8A2BE2;
+    font-weight: bold;
+}
+
+/* FAQ Section */
+.faqSection {
+    padding: 8rem 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faqItem {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 2rem;
+}
+
+.faqQuestion {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.faqAnswer {
+    color: #aaa;
+    line-height: 1.6;
+}
+
+/* Buttons */
+.ctaButton {
+    display: inline-block;
+    background: linear-gradient(90deg, #8A2BE2 0%, #FF0080 100%);
+    color: white;
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 5px 20px rgba(138, 43, 226, 0.4);
+}
+
+.ctaButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(138, 43, 226, 0.6);
+    color: white;
+    text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .heroTitle {
+        font-size: 2.5rem;
+    }
+
+    .conceptGrid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .pricingCardFeatured {
+        transform: scale(1);
+    }
+}

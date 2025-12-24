@@ -1,0 +1,351 @@
+/* src/pages/usine.module.css */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Hero Section */
+.heroSection {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 8rem 0;
+    text-align: center;
+    background: radial-gradient(circle at center, #1a0b2e 0%, #000 70%);
+}
+
+.heroContent {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.heroTitle {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+    color: white;
+}
+
+.heroSummary {
+    font-size: 1.4rem;
+    color: #ccc;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+}
+
+.socialProof {
+    font-size: 0.9rem;
+    color: #8A2BE2;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 2rem;
+    font-weight: bold;
+}
+
+/* About Section */
+.aboutSection {
+    padding: 8rem 0;
+    background: #050505;
+}
+
+.aboutGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.aboutHeading {
+    font-size: 2.5rem;
+    background: linear-gradient(90deg, #fff, #aaa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 2rem;
+}
+
+/* Dashboard Section */
+.dashboardSection {
+    padding: 8rem 0;
+    background: #000;
+    position: relative;
+}
+
+.dashboardMockup {
+    background: #1e1e1e;
+    border-radius: 12px;
+    border: 1px solid #333;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    font-family: 'Fira Code', monospace;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.terminalHeader {
+    background: #2d2d2d;
+    padding: 0.8rem 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 1px solid #333;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.terminalBody {
+    padding: 2rem;
+    color: #a9b7c6;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.statusLine {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #333;
+    padding: 0.5rem 0;
+}
+
+.statusSuccess {
+    color: #98c379;
+}
+
+.statusPending {
+    color: #e06c75;
+}
+
+/* Offer Section */
+.offerSection {
+    padding: 8rem 0;
+    background: linear-gradient(180deg, #050505 0%, #1a0b2e 100%);
+}
+
+.compareGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid #333;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 4rem;
+}
+
+.compareBox {
+    padding: 4rem;
+}
+
+.beforeBox {
+    background: rgba(255, 0, 0, 0.05);
+    border-right: 1px solid #333;
+}
+
+.afterBox {
+    background: rgba(138, 43, 226, 0.1);
+}
+
+.compareList {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+}
+
+.compareList li {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+/* Testimonials */
+.testimonialSection {
+    padding: 8rem 0;
+}
+
+.testimonialGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 4rem;
+}
+
+.testimonialCard {
+    background: #111;
+    padding: 2.5rem;
+    border-radius: 16px;
+    border: 1px solid #222;
+}
+
+.quote {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #ccc;
+    margin-bottom: 1.5rem;
+}
+
+.author {
+    font-weight: bold;
+    color: #8A2BE2;
+}
+
+/* FAQ */
+.faqSection {
+    padding: 8rem 0;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faqItem {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #222;
+    padding-bottom: 2rem;
+}
+
+.faqQuestion {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.faqAnswer {
+    color: #999;
+    line-height: 1.6;
+}
+
+/* Button */
+.ctaButton {
+    display: inline-block;
+    background: linear-gradient(90deg, #8A2BE2 0%, #FF0080 100%);
+    color: white;
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.ctaButton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(138, 43, 226, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+
+    .compareGrid,
+    .testimonialGrid,
+    .aboutGrid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .heroTitle {
+        font-size: 2.5rem;
+    }
+
+    .beforeBox {
+        border-right: none;
+        border-bottom: 1px solid #333;
+    }
+}
+
+/* Light Mode Overrides */
+html[data-theme='light'] .heroSection {
+    background: radial-gradient(circle at center, #ffffff 0%, #f4f4f4 70%);
+}
+
+html[data-theme='light'] .heroTitle {
+    color: #1a1a1a;
+}
+
+html[data-theme='light'] .heroSummary {
+    color: #555;
+}
+
+html[data-theme='light'] .aboutSection {
+    background: #ffffff;
+}
+
+html[data-theme='light'] .aboutHeading {
+    background: linear-gradient(90deg, #1a1a1a, #555);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+html[data-theme='light'] .dashboardSection {
+    background: #f8f9fa;
+}
+
+/* Keep Dashboard Mockup Dark even in Light Mode for contrast */
+html[data-theme='light'] .dashboardMockup {
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+html[data-theme='light'] .offerSection {
+    background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
+}
+
+html[data-theme='light'] .compareGrid {
+    border-color: #e0e0e0;
+}
+
+html[data-theme='light'] .beforeBox {
+    background: rgba(255, 0, 0, 0.05);
+    border-right-color: #e0e0e0;
+}
+
+html[data-theme='light'] .afterBox {
+    background: rgba(138, 43, 226, 0.05);
+}
+
+html[data-theme='light'] .testimonialSection {
+    background: #ffffff;
+}
+
+html[data-theme='light'] .testimonialCard {
+    background: #f4f4f4;
+    border-color: #e0e0e0;
+}
+
+html[data-theme='light'] .quote {
+    color: #444;
+}
+
+html[data-theme='light'] .faqSection {
+    background: #ffffff;
+}
+
+html[data-theme='light'] .faqItem {
+    border-bottom-color: #eee;
+}
+
+html[data-theme='light'] .faqQuestion {
+    color: #1a1a1a;
+}
+
+html[data-theme='light'] .faqAnswer {
+    color: #555;
+}
+
+/* Adjust light mode text colors in specific containers */
+html[data-theme='light'] h2 {
+    color: #1a1a1a !important;
+}
+
+html[data-theme='light'] p {
+    color: #444;
+}
