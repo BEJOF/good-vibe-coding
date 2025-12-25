@@ -73,6 +73,19 @@
     font-weight: 700;
 }
 
+.questionTag {
+    background: rgba(138, 43, 226, 0.15);
+    color: #ce8df0;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 0.4rem 0.8rem;
+    border-radius: 50px;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
 .questionTitle {
     font-size: 2rem;
     font-weight: 700;

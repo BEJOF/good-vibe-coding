@@ -140,7 +140,44 @@
     font-size: 0.9rem;
 }
 
-/* 2. METHOD SECTION */
+/* 2. PAIN SECTION */
+.painSection {
+    padding: 8rem 0;
+    background: var(--vibe-card-bg);
+}
+
+.painGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+}
+
+.painCard {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 2.5rem;
+    border-radius: 16px;
+    border: 1px solid #222;
+    transition: transform 0.3s ease;
+}
+
+.painCard:hover {
+    transform: translateY(-5px);
+    border-color: red;
+}
+
+.painTitle {
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.painText {
+    color: #aaa;
+    line-height: 1.6;
+}
+
+/* 3. METHOD SECTION */
 .methodSection {
     padding: 8rem 0;
     background: var(--vibe-card-bg);
@@ -177,7 +214,7 @@
     line-height: 1.6;
 }
 
-/* 3. SOLUTIONS / PRICING SECTION */
+/* 4. SOLUTIONS / PRICING SECTION */
 .pricingSection {
     padding: 8rem 0;
     background: linear-gradient(180deg, var(--vibe-card-bg) 0%, var(--vibe-bg-color) 100%);
@@ -219,7 +256,7 @@
     border-right: none;
 }
 
-/* Featured pricing card (middle) */
+/* 5. Featured pricing card (middle) */
 .pricingCardFeatured {
     background: rgba(15, 15, 15, 0.95);
     border: 1px solid #8A2BE2;
@@ -254,7 +291,7 @@
     margin-bottom: 2rem;
 }
 
-/* 4. HUMAN SECTION */
+/* 6. HUMAN SECTION */
 .humanSection {
     padding: 8rem 0;
     background: var(--vibe-bg-color);
@@ -297,7 +334,7 @@
     padding-left: 2rem;
 }
 
-/* 5. PROCESS SECTION */
+/* 7. PROCESS SECTION */
 .processSection {
     padding: 8rem 0;
     background: var(--vibe-card-bg);
@@ -337,7 +374,7 @@
     margin-bottom: 0.5rem;
 }
 
-/* 6. FAQ SECTION */
+/* 8. FAQ SECTION */
 .faqSection {
     padding: 8rem 0;
     max-width: 800px;
@@ -386,12 +423,19 @@
 /* Responsive */
 @media (max-width: 900px) {
 
+    .container {
+        padding: 0 1rem;
+        overflow-x: hidden;
+    }
+
+    .painGrid,
     .methodGrid,
     .pricingTable,
     .humanGrid,
-    .processGrid {
+    .processGrid,
+    .testimonialsGrid {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 1.5rem;
     }
 
     .pricingCard {
@@ -399,8 +443,44 @@
         border-bottom: 1px solid #333;
     }
 
+    .heroSection {
+        padding: 4rem 0;
+        min-height: auto;
+    }
+
     .heroTitle {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .heroSubtitle {
+        font-size: 1.1rem;
+    }
+
+    .painSection,
+    .methodSection,
+    .pricingSection,
+    .humanSection,
+    .processSection,
+    .testimonialsSection {
+        padding: 4rem 0;
+    }
+
+    .socialProofBadge {
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .testimonialCard {
+        padding: 1.5rem;
+    }
+
+    .painCard {
+        padding: 1.5rem;
+    }
+
+    .methodCard {
+        padding: 1.5rem;
     }
 }
 
@@ -429,6 +509,23 @@
 
 .heroContent {
     animation: fadeInUp 0.8s ease-out;
+}
+
+.painCard {
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+.painCard:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.painCard:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.painCard:nth-child(3) {
+    animation-delay: 0.3s;
 }
 
 .methodCard {
@@ -525,6 +622,32 @@ html[data-theme='light'] .titleGradient {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+
+html[data-theme='light'] .painSection {
+    background: #f8f9fa;
+}
+
+html[data-theme='light'] .painCard {
+    background: #f8f9fa;
+    border-color: #e0e0e0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+html[data-theme='light'] .painCard:hover {
+    border-color: red;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(138, 43, 226, 0.1);
+}
+
+html[data-theme='light'] .painTitle {
+    color: #1a1a1a;
+}
+
+html[data-theme='light'] .painText {
+    color: #555;
+}
+
 
 html[data-theme='light'] .methodSection {
     background: #ffffff;

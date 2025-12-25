@@ -98,8 +98,43 @@ export default function AuditSprint() {
         }
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         setStatus('analyzing');
+
+        // Google Apps Script endpoint (same as formulaire)
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyZJOO5RQwbmspI5s1pOjpFPqBeQBhJeRBlAj8gsOWT_jYFdv5p0eBW2N3NkM-Euq-fmA/exec';
+
+        const dataToSend = {
+            source: 'audit-sprint',
+            projectName: formData.projectName,
+            goal: formData.goal,
+            projectType: formData.projectType,
+            features: formData.features,
+            designStatus: formData.designStatus,
+            tools: formData.tools.join(', '),
+            toolsOther: formData.toolsOther,
+            budget: formData.budget,
+            deadline: formData.deadline,
+            whyVibe: formData.whyVibe,
+            name: formData.name,
+            phone: formData.phone,
+            email: formData.email,
+            timestamp: new Date().toISOString()
+        };
+
+        // Send data to Google Sheet (fire and forget with no-cors)
+        try {
+            fetch(scriptURL, {
+                method: 'POST',
+                body: JSON.stringify(dataToSend),
+                headers: { 'Content-Type': 'application/json' },
+                mode: 'no-cors'
+            });
+        } catch (error) {
+            console.error('Error sending to Google Sheet:', error);
+        }
+
+        // Continue with animated analysis steps
         const delays = [1500, 3000, 4500];
         delays.forEach((delay, index) => {
             setTimeout(() => setAnalysisStep(index + 1), delay);
@@ -107,7 +142,7 @@ export default function AuditSprint() {
         setTimeout(() => setStatus('completed'), 6000);
     };
 
-    const progressPercentage = ((step - 1) / totalSteps) * 100;
+    const progressPercentage = (step / totalSteps) * 100;
 
     // AI Analysis End Screen
     if (status === 'analyzing' || status === 'completed') {
@@ -125,7 +160,7 @@ export default function AuditSprint() {
                 <div className={styles.fullPageContainer} style={{ justifyContent: 'center' }}>
                     <motion.div
                         className={styles.formContainer}
-                        style={{ width: '100%', maxWidth: '600px', background: 'rgba(0,0,0,0.5)', border: 'none' }}
+                        style={{ width: '100%', maxWidth: '600px', border: 'none' }}
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5 }}
@@ -179,12 +214,12 @@ export default function AuditSprint() {
 
                                         {isEligible ? (
                                             <motion.div
-                                                style={{ background: '#1a1a1a', padding: '2rem', borderRadius: '12px', border: '1px solid #8A2BE2' }}
+                                                style={{ padding: '2rem', borderRadius: '12px', border: '1px solid #8A2BE2' }}
                                                 initial={{ opacity: 0, y: 20 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 transition={{ delay: 0.3 }}
                                             >
-                                                <p style={{ marginBottom: '1.5rem', color: '#fff' }}><strong>Étape suivante :</strong> Validez les détails techniques en 15 min.</p>
+                                                <p style={{ marginBottom: '1.5rem' }}><strong>Étape suivante :</strong> Validez les détails techniques en 15 min.</p>
                                                 <motion.a
                                                     href="https://calendly.com/goodvibecoding/15min"
                                                     target="_blank"
@@ -242,7 +277,7 @@ export default function AuditSprint() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                             >
-                                Vibe Engineering <span style={{ color: '#8A2BE2' }}>// Audit</span>
+                                Good Vibe Coding <span style={{ color: '#8A2BE2' }}>// Audit</span>
                             </motion.h1>
                         </div>
 
@@ -269,7 +304,7 @@ export default function AuditSprint() {
                                     transition={{ duration: 0.3 }}
                                 >
                                     <motion.div className={styles.questionHeader} variants={fadeInUp} initial="hidden" animate="visible">
-                                        <span className={styles.questionTag}>1. L'Identité (Le Quoi)</span>
+                                        <span className={styles.questionTag}>Étape 1/4 : L'Identité</span>
                                         <h2 className={styles.questionTitle}>Quel est le nom de votre projet/entreprise ?</h2>
                                     </motion.div>
                                     <motion.input
@@ -333,7 +368,7 @@ export default function AuditSprint() {
                                     transition={{ duration: 0.3 }}
                                 >
                                     <motion.div className={styles.questionHeader} variants={fadeInUp} initial="hidden" animate="visible">
-                                        <span className={styles.questionTag}>2. Le Périmètre (Pour l'IA du PRD)</span>
+                                        <span className={styles.questionTag}>Étape 2/4 : Le Périmètre</span>
                                         <h2 className={styles.questionTitle}>Quelles sont les 3 fonctionnalités indispensables ?</h2>
                                     </motion.div>
                                     <motion.textarea
@@ -400,7 +435,7 @@ export default function AuditSprint() {
                                     transition={{ duration: 0.3 }}
                                 >
                                     <motion.div className={styles.questionHeader} variants={fadeInUp} initial="hidden" animate="visible">
-                                        <span className={styles.questionTag}>3. Le Business (Filtrage)</span>
+                                        <span className={styles.questionTag}>Étape 3/4 : Le Business</span>
                                         <h2 className={styles.questionTitle}>Quel est le budget investi pour cette phase ?</h2>
                                         <p className={styles.helperText}>Nous privilégions la transparence pour éviter de vous faire perdre du temps.</p>
                                     </motion.div>
@@ -434,22 +469,8 @@ export default function AuditSprint() {
                                     transition={{ duration: 0.3 }}
                                 >
                                     <motion.div className={styles.questionHeader} variants={fadeInUp} initial="hidden" animate="visible">
-                                        <span className={styles.questionTag}>4. La Validation (Le Fit)</span>
-                                        <h2 className={styles.questionTitle}>Pourquoi Vibe Engineering plutôt qu'une agence classique ?</h2>
+                                        <span className={styles.questionTag}>Étape finale</span>
                                     </motion.div>
-                                    <motion.textarea
-                                        name="whyVibe"
-                                        className={styles.textarea}
-                                        placeholder="Votre réponse (nous lisons tout)..."
-                                        value={formData.whyVibe}
-                                        onChange={handleChange}
-                                        style={{ marginBottom: '2rem', minHeight: '100px' }}
-                                        autoFocus
-                                        variants={fadeInUp}
-                                        initial="hidden"
-                                        animate="visible"
-                                        transition={{ delay: 0.1 }}
-                                    />
 
                                     <motion.div className={styles.questionHeader} variants={fadeInUp} initial="hidden" animate="visible" transition={{ delay: 0.2 }}>
                                         <h2 className={styles.questionTitle}>Vos coordonnées</h2>
@@ -483,7 +504,7 @@ export default function AuditSprint() {
                             <motion.button
                                 type="button"
                                 onClick={handleNext}
-                                className={clsx(styles.nextButton, step === totalSteps && styles.finalSubmitButton)}
+                                className={clsx(styles.nextButton, styles.finalSubmitButton)}
                                 whileHover={{ scale: 1.03, boxShadow: '0 10px 30px rgba(138, 43, 226, 0.3)' }}
                                 whileTap={{ scale: 0.97 }}
                             >

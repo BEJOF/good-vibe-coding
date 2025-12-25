@@ -95,11 +95,14 @@ export default function Engineering() {
                         animate="visible"
                     >
                         <motion.h1 className={styles.heroTitle} variants={fadeInUp}>
-                            Votre projet Web ou App déployé en <span className={styles.titleAccent}>7 jours.</span> Garanti.
+                            Votre site ou outil sur-mesure déployé en <span className={styles.titleAccent}>7 jours !</span>
                         </motion.h1>
                         <motion.p className={styles.heroSubtitle} variants={fadeInUp}>
-                            J'allie 15 ans d'expertise en ingénierie à la puissance de l'IA pour transformer vos idées en solutions concrètes, sans les délais interminables des agences classiques.
+                            Stop aux projets qui s'éternisent.<br />Je vous livre un produit fini, fiable et prêt à l'emploi, pour un budget clair et garanti.
                         </motion.p>
+                        {/* <motion.p className={styles.heroSubtitle} variants={fadeInUp}>
+                            J'allie 15 ans d'expertise en ingénierie à la puissance de l'IA pour transformer vos idées en solutions concrètes, sans les délais interminables des agences classiques.
+                        </motion.p> */}
 
                         {/* Social Proof Badge - Above CTA */}
                         <motion.div
@@ -121,7 +124,68 @@ export default function Engineering() {
             </motion.header>
 
             <main>
-                {/* 2. METHOD SECTION */}
+                {/* 3. PAIN SECTION */}
+                <section className={styles.painSection}>
+                    <div className={styles.container}>
+                        <motion.h2
+                            style={{ textAlign: 'center', fontSize: '2.5rem', color: 'white', marginBottom: '3rem' }}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, amount: 0.3 }}
+                            transition={{ duration: 0.6 }}
+                        >
+                            Le piège du développement classique
+                        </motion.h2>
+                        <motion.p
+                            style={{ textAlign: 'center', color: '#888', marginBottom: '3rem' }}
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.2 }}
+                        >
+                            Vous avez une idée urgente, mais les agences vous proposent des délais et des prix inadaptés.
+                        </motion.p>
+                        <motion.div
+                            className={styles.painGrid}
+                            variants={staggerContainer}
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, amount: 0.2 }}
+                        >
+                            <motion.div className={styles.painCard} variants={fadeInUp} whileHover={{ y: -8, boxShadow: '0 20px 40px rgba(138,43,226,0.2)' }}>
+                                <div className={styles.painTitle}>💸 Des devis astronomiques</div>
+                                <p className={styles.painText}>
+                                    Vous payez pour leur temps d'apprentissage et leurs lourdeurs internes.
+                                </p>
+                            </motion.div>
+                            <motion.div className={styles.painCard} variants={fadeInUp} whileHover={{ y: -8, boxShadow: '0 20px 40px rgba(138,43,226,0.2)' }}>
+                                <div className={styles.painTitle}>⏰ Des délais de 4 à 8 semaines</div>
+                                <p className={styles.painText}>
+                                    Vous perdez votre avance sur le marché en attendant que ça bouge.
+                                </p>
+                            </motion.div>
+                            <motion.div className={styles.painCard} variants={fadeInUp} whileHover={{ y: -8, boxShadow: '0 20px 40px rgba(138,43,226,0.2)' }}>
+                                <div className={styles.painTitle}>💥 Des surprises techniques</div>
+                                <p className={styles.painText}>
+                                    Le produit final ne correspond pas à vos attentes ou plante au lancement.
+                                </p>
+                            </motion.div>
+                        </motion.div>
+                        <motion.div
+                            style={{ textAlign: 'center', marginTop: '3rem' }}
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.4 }}
+                        >
+                            <Link to="/good-vibe-coding/audit-sprint" className={styles.ctaButton}>
+                                Je veux éviter ces pièges →
+                            </Link>
+                        </motion.div>
+                    </div>
+                </section>
+
+                {/* 3. METHOD SECTION */}
                 <section className={styles.methodSection}>
                     <div className={styles.container}>
                         <motion.h2
@@ -173,7 +237,7 @@ export default function Engineering() {
                     </div>
                 </section>
 
-                {/* 3. SOLUTIONS / PRICING SECTION */}
+                {/* 4. SOLUTIONS / PRICING SECTION */}
                 <section className={styles.pricingSection}>
                     <div className={styles.container}>
                         <motion.h2
@@ -246,7 +310,7 @@ export default function Engineering() {
                     </div>
                 </section>
 
-                {/* SOCIAL PROOF / TESTIMONIALS */}
+                {/* 5. SOCIAL PROOF / TESTIMONIALS */}
                 <section className={styles.testimonialsSection}>
                     <div className={styles.container}>
                         <motion.h2
@@ -290,7 +354,7 @@ export default function Engineering() {
                     </div>
                 </section>
 
-                {/* 4. HUMAN SECTION */}
+                {/* 6. HUMAN SECTION */}
                 <section className={styles.humanSection}>
                     <div className={styles.container}>
                         <motion.div
@@ -331,7 +395,7 @@ export default function Engineering() {
                     </div>
                 </section>
 
-                {/* 5. PROCESS SECTION */}
+                {/* 7. PROCESS SECTION */}
                 <section className={styles.processSection}>
                     <div className={styles.container}>
                         <motion.h2
@@ -351,9 +415,9 @@ export default function Engineering() {
                         >
                             {[
                                 { num: '1', title: 'Le Quiz', desc: '2 min pour qualifier votre besoin.' },
-                                { num: '2', title: 'Le Diagnostic IA', desc: 'Votre PRD reçu flash sous 2h.' },
-                                { num: '3', title: "L'Appel Flash", desc: '15 min pour valider les détails.' },
-                                { num: '4', title: 'Le Sprint', desc: 'Lancement développement immédiat.' }
+                                { num: '2', title: 'Le Diagnostic', desc: '15 min pour recevoir gratuitement votre Dossier de projet (PRD). (valeur 5000€)' },
+                                { num: '3', title: "L'Appel Flash", desc: '1 hr pour valider les détails et première démo.' },
+                                { num: '4', title: 'Le Sprint', desc: '7 jours pour développer et livrer avec un suivi continu.' }
                             ].map((step, i) => (
                                 <motion.div
                                     key={i}
@@ -380,7 +444,7 @@ export default function Engineering() {
                     </div>
                 </section>
 
-                {/* 6. FAQ SECTION */}
+                {/* 8. FAQ SECTION */}
                 <section className={styles.faqSection}>
                     <div className={styles.container}>
                         <motion.h2
@@ -419,7 +483,7 @@ export default function Engineering() {
                         >
                             <h3 style={{ color: 'white', marginBottom: '2rem' }}>Prêt à passer à la vitesse supérieure ?</h3>
                             <Link to="/good-vibe-coding/audit-sprint" className={styles.ctaButton} style={{ fontSize: '1.3rem', padding: '1.2rem 3rem' }}>
-                                Générer mon dossier de projet (PRD) gratuitement
+                                Générer mon dossier de projet (PRD) gratuitement<br />(valeur 5000€)
                             </Link>
                         </motion.div>
                     </div>
